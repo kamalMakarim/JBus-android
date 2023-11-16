@@ -5,20 +5,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/smoke">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/login_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="30sp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        tools:layout_editor_absoluteX="30dp"
+        android:background="@drawable/roudned_white_background"
+        android:padding="20dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/bus_logo"
+                android:scaleType="fitCenter"
+                tools:ignore="ContentDescription" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="JBus"
+                android:textSize="50sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/login_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            tools:ignore="HardcodedText,TextFields"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Password"
+            tools:ignore="HardcodedText,TextFields"
+            android:importantForAutofill="no" />
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/login_button"
+            style="@style/RoundedButton"
+            android:layout_marginTop="20sp"
+            android:text="Login"
+            tools:ignore="HardcodedText" />
+
+        <!-- Or TextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10sp"
+            android:text="or"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <!-- Create Account Button -->
+        <Button
+            android:id="@+id/create_button"
+            style="@style/RoundedButton"
+            android:text="Create Account"
+            tools:ignore="HardcodedText"/>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

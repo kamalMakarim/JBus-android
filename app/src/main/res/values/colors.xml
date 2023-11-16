@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darkBlue">#0F1743</color>
+    <color name="smoke">#E3E3E3</color>
 </resources>
