@@ -40,44 +40,6 @@
                 android:layout_gravity="center"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/login_email"
-            style="@style/textEditStyle"
-            android:hint="Email"
-            tools:ignore="HardcodedText,TextFields"
-            android:importantForAutofill="no"/>
-
-        <EditText
-            android:id="@+id/login_password"
-            style="@style/textEditStyle"
-            android:layout_marginTop="8dp"
-            android:hint="Password"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            tools:ignore="HardcodedText,TextFields" />
-
-        <Button
-            android:id="@+id/login_button"
-            style="@style/RoundedButton"
-            android:layout_marginTop="20sp"
-            android:text="Login"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="3sp"
-            android:text="or"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/create_button"
-            style="@style/RoundedButton"
-            android:text="Create Account"
-            tools:ignore="HardcodedText"/>
     </LinearLayout>
 
 

@@ -1,53 +1,42 @@
 package com.kamalMakarimJBusRD;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
+import android.content.Context;
+
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText emailEditText;
-    private EditText passwordEditText;
-
+    private Button loginButton = null;
+    private TextView registerNow = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        loginButton = findViewById(R.id.login_button);
+        registerNow = findViewById(R.id.create_button);
 
 
-        emailEditText = findViewById(R.id.login_email);
-        passwordEditText = findViewById(R.id.login_password);
-
-        Button loginButton = findViewById(R.id.login_button);
-        Button registerButton = findViewById(R.id.create_button);
-
-        loginButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-
-                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-                    Toast.makeText(LoginActivity.this, "Tolong isi email dan password", Toast.LENGTH_SHORT).show();
-                } else {
-                    performLogin(email, password);
-                }
-            }
+        registerNow.setOnClickListener(v -> {
+            moveActivity(this, RegisterActivity.class);
+        });
+        loginButton.setOnClickListener(v -> {
+            moveActivity(this, MainActivity.class);
         });
 
-        registerButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Toast.makeText(LoginActivity.this, "Register", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        if(getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+        if(getActionBar() != null) {
+            getActionBar().hide();
+        }
     }
 
-    private void performLogin(String email, String password){
-        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
+    private void moveActivity(Context ctx, Class<?> cls) {
+        Intent intent = new Intent(ctx, cls);
+        startActivity(intent);
     }
 }
