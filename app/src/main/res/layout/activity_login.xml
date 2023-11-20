@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/bus_logo"
+                android:src="@drawable/bus_logo2"
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription" />
             <TextView
@@ -46,7 +46,8 @@
             style="@style/textEditStyle"
             android:hint="Email"
             tools:ignore="HardcodedText,TextFields"
-            android:importantForAutofill="no"/>
+            android:importantForAutofill="no"
+            android:layout_marginTop="8dp"/>
 
         <EditText
             android:id="@+id/login_password"
