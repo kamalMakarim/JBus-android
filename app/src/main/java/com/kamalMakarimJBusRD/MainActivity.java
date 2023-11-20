@@ -114,8 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void scrollToItem(Button item) {
-        int scrollX = item.getLeft() - (pageScroll.getWidth() - item.getWidth()) /
-                2;
+        int scrollX = item.getLeft() - (pageScroll.getWidth() - item.getWidth()) / 2;
         pageScroll.smoothScrollTo(scrollX, 0);
     }
 
