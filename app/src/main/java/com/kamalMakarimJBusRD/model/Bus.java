@@ -22,9 +22,6 @@ public class Bus extends Serializable {
         for (int i = 1; i <= size; i++) {
             Bus bus = new Bus();
             bus.name = "Bus " + i;
-            bus.price = new Price();
-            bus.price.price = 100000;
-            bus.capacity = 10;
             busList.add(bus);
         }
 

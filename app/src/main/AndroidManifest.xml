@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,7 +13,23 @@
         android:roundIcon="@drawable/bus_logo2"
         android:supportsRtl="true"
         android:theme="@style/Theme.JBusandroid"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".AddBusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BusScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManageBusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterRenterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".request.RegisterRenterActivity"
+            android:exported="false" />
         <activity
             android:name=".AboutMeActivity"
             android:exported="false" />
@@ -32,4 +49,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

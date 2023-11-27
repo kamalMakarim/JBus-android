@@ -74,8 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     loggedAccount = res.payload;
-                    if (!res.success) Toast.makeText(mContext, res.message, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(mContext, "Pesan yang welcoming", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Welcome to JBus", Toast.LENGTH_SHORT).show();
                     moveActivity(mContext, MainActivity.class);
                 }
             }

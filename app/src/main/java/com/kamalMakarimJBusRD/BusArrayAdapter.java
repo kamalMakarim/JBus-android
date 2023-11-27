@@ -4,7 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -15,8 +18,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class BusArrayAdapter extends ArrayAdapter<Bus>{
-    public BusArrayAdapter(Context context, List<Bus> objects) {
+    public int resourceLayout;
+    public ImageView calendar;
+    public BusArrayAdapter(Context context, List<Bus> objects, int resourceLayout) {
         super(context, 0, objects);
+        this.resourceLayout = resourceLayout;
     }
 
     @NonNull
@@ -26,9 +32,13 @@ public class BusArrayAdapter extends ArrayAdapter<Bus>{
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.bus_view, parent, false);
         }
+
         TextView busName = convertView.findViewById(R.id.bus_view_name);
         TextView busPrice = convertView.findViewById(R.id.bus_view_price);
         TextView capacity = convertView.findViewById(R.id.bus_view_capacity);
+        if(this.resourceLayout == R.layout.bus_view_manage) {
+            this.calendar = convertView.findViewById(R.id.calendar_image);
+        }
         assert bus != null;
         busName.setText(bus.name);
         int priceInIDR = (int) bus.price.price;

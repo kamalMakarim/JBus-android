@@ -6,12 +6,4 @@ public class Account extends Serializable {
     public String password;
     public double balance;
     public Renter company;
-
-    public Account() {
-        this.name = "";
-        this.email = "";
-        this.password = "";
-        this.balance = 0;
-        this.company = null;
-    }
 }

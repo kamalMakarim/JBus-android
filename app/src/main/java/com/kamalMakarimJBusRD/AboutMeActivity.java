@@ -5,9 +5,11 @@ import static java.lang.String.valueOf;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.kamalMakarimJBusRD.model.Account;
@@ -29,7 +31,13 @@ public class AboutMeActivity extends AppCompatActivity {
     private TextView initial;
     private Button topUpButton;
     private EditText topUpAmount;
+
+    private LinearLayout noCompany;
+    private LinearLayout company;
+
     private String nameText;
+    private Button manageBusButton;
+    private TextView registerRenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +53,30 @@ public class AboutMeActivity extends AppCompatActivity {
         topUpButton = findViewById(R.id.top_up_button);
         topUpAmount = findViewById(R.id.top_up);
         nameText = LoginActivity.loggedAccount.name;
+        noCompany = findViewById(R.id.about_notRenter);
+        company = findViewById(R.id.about_aRenter);
+        manageBusButton = findViewById(R.id.manageBus_button);
+        registerRenter = findViewById(R.id.register_company);
 
         username.setText(nameText);
         email.setText(LoginActivity.loggedAccount.email);
         balance.setText(valueOf(LoginActivity.loggedAccount.balance));
         initial.setText(nameText.substring(0,1));
+
+        if(LoginActivity.loggedAccount.company == null){
+            noCompany.setVisibility(LinearLayout.VISIBLE);
+            company.setVisibility(LinearLayout.GONE);
+            registerRenter.setOnClickListener(v -> {
+                moveActivity(this, RegisterRenterActivity.class);
+            });
+        }
+        else{
+            noCompany.setVisibility(LinearLayout.GONE);
+            company.setVisibility(LinearLayout.VISIBLE);
+            manageBusButton.setOnClickListener(v -> {
+                moveActivity(this, ManageBusActivity.class);
+            });
+        }
 
         if(getSupportActionBar() != null){
             getSupportActionBar().hide();
@@ -91,5 +118,10 @@ public class AboutMeActivity extends AppCompatActivity {
                 Toast.makeText(mContext, "Problem with the server", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void moveActivity(Context ctx, Class<?> cls) {
+        Intent intent = new Intent(ctx, cls);
+        startActivity(intent);
     }
 }
