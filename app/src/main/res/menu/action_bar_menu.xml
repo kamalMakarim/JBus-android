@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ExtraText">
 
-
-
     <item
         android:id="@+id/search_button"
         android:icon="@drawable/baseline_search_24"

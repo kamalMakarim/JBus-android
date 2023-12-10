@@ -67,7 +67,7 @@ public class AddBusActivity extends AppCompatActivity {
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-
+            Toast.makeText(mContext, "Please select a station", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -86,9 +86,9 @@ public class AddBusActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bus);
+        getSupportActionBar().hide();
 
         mApiService = UtilsApi.getApiService();
         mContext = this;
@@ -162,6 +162,7 @@ public class AddBusActivity extends AppCompatActivity {
                     BaseResponse<Bus> body = response.body();
                     if (body.success) {
                         Toast.makeText(mContext, "Bus added", Toast.LENGTH_SHORT).show();
+                        listBus.add(body.payload);
                         finish();
                     } else {
                         Toast.makeText(mContext, "Error: " + body.message, Toast.LENGTH_SHORT).show();

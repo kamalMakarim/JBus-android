@@ -179,27 +179,23 @@ public class BusDetailActivity extends AppCompatActivity {
 
             if(schedule.getAvailable() == 0){
                 scheduleOccupancy.setText("Full");
-            } else if (schedule.getAvailable() == 1) {
-                scheduleOccupancy.setText("A seat is available");
-            } else {
-                scheduleOccupancy.setText(schedule.getAvailable() + " seats are still available");
+            } else{
+                scheduleOccupancy.setText(schedule.getAvailable() + " seats are available");
+                scheduleView.setOnClickListener(v -> {
+                    selectedSchedule = schedule;
+                    selectedSeats = new ArrayList<>(); // Reset the selected seats
+                    if (selectedSchedule != null) {
+                        SimpleDateFormat sentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                        formattedSchedule = sentFormat.format(selectedSchedule.departureSchedule);
+                        SeatAdapter seatAdapter = new SeatAdapter(mContext, schedule.seatAvailability);
+                        listView.setAdapter(seatAdapter);
+                        chooseYour.setText("Choose your seat");
+                        bookButton.setVisibility(View.VISIBLE);
+                    } else {
+                        Toast.makeText(mContext, "No schedule selected", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-
-            scheduleView.setOnClickListener(v -> {
-                selectedSchedule = schedule;
-                selectedSeats = new ArrayList<>(); // Reset the selected seats
-                if (selectedSchedule != null) {
-                    SimpleDateFormat sentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                    formattedSchedule = sentFormat.format(selectedSchedule.departureSchedule);
-                    SeatAdapter seatAdapter = new SeatAdapter(mContext, schedule.seatAvailability);
-                    listView.setAdapter(seatAdapter);
-                    chooseYour.setText("Choose your seat");
-                    bookButton.setVisibility(View.VISIBLE);
-                } else {
-                    Toast.makeText(mContext, "No schedule selected", Toast.LENGTH_SHORT).show();
-                }
-            });
-
             return convertView;
         }
     }

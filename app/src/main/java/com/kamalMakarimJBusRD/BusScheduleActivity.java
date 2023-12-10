@@ -144,12 +144,15 @@ public class BusScheduleActivity extends AppCompatActivity {
                     if(res.success){
                         Toast.makeText(mContext, "Schedule added", Toast.LENGTH_SHORT).show();
                         bus = response.body().payload;
+                        MainActivity.listBus.remove(ManageBusActivity.selectedBus);
+                        MainActivity.listBus.add(bus);
                         ScheduleAdapter arrayAdapter = new ScheduleAdapter(mContext, bus.schedules);
                         schduleList.setAdapter(arrayAdapter);
                         addScheduleLayout.setVisibility(LinearLayout.GONE);
                         header.setVisibility(LinearLayout.VISIBLE);
                         schduleList.setVisibility(LinearLayout.VISIBLE);
                         Toast.makeText(mContext, res.message, Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                     else{
                         Toast.makeText(mContext, res.message ,Toast.LENGTH_SHORT).show();

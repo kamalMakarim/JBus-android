@@ -18,21 +18,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import android.widget.HorizontalScrollView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.kamalMakarimJBusRD.model.Bus;
 import com.kamalMakarimJBusRD.model.Station;
 import com.kamalMakarimJBusRD.request.BaseApiService;
 import com.kamalMakarimJBusRD.request.UtilsApi;
-
 import java.util.List;
-import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private final int pageSize = 7; // kalian dapat bereksperimen dengan field ini
     private int listSize;
     private int noOfPages;
-    private List<Bus> listBus = new ArrayList<>();
+    public static List<Bus> listBus = new ArrayList<>();
     private Button prevButton = null;
     private Button nextButton = null;
     private ListView busListView = null;
@@ -106,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i< noOfPages; i++) {
             if (i == index) {
                 btns[index].setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
-                btns[i].setTextColor(getResources().getColor(android.R.color.white));
+                btns[i].setTextColor(getResources().getColor(android.R.color.black));
                 scrollToItem(btns[index]);
                 viewPaginatedList(listBus, currentPage);
             } else {
@@ -130,17 +125,54 @@ public class MainActivity extends AppCompatActivity {
         pageScroll.smoothScrollTo(scrollX, 0);
     }
 
+    private SearchView searchView = null;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_bar_menu, menu);
+
+        // Setup SearchView
+        MenuItem searchItem = menu.findItem(R.id.search_button);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint("Search Buses");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterBusList(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterBusList(newText);
+                return false;
+            }
+        });
+
         return true;
     }
+
+    private void filterBusList(String query) {
+        List<Bus> filteredList = new ArrayList<>();
+        for (Bus bus : listBus) {
+            if (bus.name.toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(bus);
+            }
+        }
+        BusArrayAdapter arrayAdapter = new BusArrayAdapter(MainActivity.this, filteredList);
+        busListView.setAdapter(arrayAdapter);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.account_button) {
             moveActivity(this, AboutMeActivity.class);
+        }
+        if(item.getItemId() == R.id.payment_button) {
+            moveActivity(this, PaymentActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -150,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getAllBus(){
+    public void getAllBus(){
         mApiService.getAllBus().enqueue(new Callback<List<Bus>>() {
             @Override
             public void onResponse(Call<List<Bus>> call, Response<List<Bus>> response) {

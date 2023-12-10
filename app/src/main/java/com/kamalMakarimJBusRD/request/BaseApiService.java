@@ -78,6 +78,20 @@ public interface BaseApiService {
             @Query("busId") int busId,
             @Query("busSeats") List<String> busSeats,
             @Query("departureDate") String departureDate
+    );
 
+    @GET("payment/getMyPayment")
+    Call<BaseResponse<List<Payment>>> getMyPayment (
+            @Query("accountId") int accountId
+    );
+
+    @POST("payment/{id}/accept")
+    Call<BaseResponse<Payment>> pay (
+            @Path("id") int id
+    );
+
+    @POST("payment/{id}/cancel")
+    Call<BaseResponse<Payment>> cancel (
+            @Path("id") int id
     );
 }

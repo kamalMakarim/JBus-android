@@ -18,6 +18,9 @@ import com.kamalMakarimJBusRD.model.BaseResponse;
 import com.kamalMakarimJBusRD.request.BaseApiService;
 import com.kamalMakarimJBusRD.request.UtilsApi;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Callback;
@@ -60,7 +63,8 @@ public class AboutMeActivity extends AppCompatActivity {
 
         username.setText(nameText);
         email.setText(loggedAccount.email);
-        balance.setText(valueOf(loggedAccount.balance));
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        balance.setText(valueOf(currencyFormat.format(loggedAccount.balance)));
         initial.setText(nameText.substring(0,1));
 
         if(loggedAccount.company == null){
