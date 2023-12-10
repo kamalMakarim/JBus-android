@@ -1,5 +1,6 @@
 package com.kamalMakarimJBusRD;
 
+import static com.kamalMakarimJBusRD.LoginActivity.loggedAccount;
 import static java.lang.String.valueOf;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,25 +46,24 @@ public class AboutMeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_me);
         mApiService = UtilsApi.getApiService();
         mContext = this;
-
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
         balance = findViewById(R.id.balance);
         initial = findViewById(R.id.initial);
         topUpButton = findViewById(R.id.top_up_button);
         topUpAmount = findViewById(R.id.top_up);
-        nameText = LoginActivity.loggedAccount.name;
+        nameText = loggedAccount.name;
         noCompany = findViewById(R.id.about_notRenter);
         company = findViewById(R.id.about_aRenter);
         manageBusButton = findViewById(R.id.manageBus_button);
         registerRenter = findViewById(R.id.register_company);
 
         username.setText(nameText);
-        email.setText(LoginActivity.loggedAccount.email);
-        balance.setText(valueOf(LoginActivity.loggedAccount.balance));
+        email.setText(loggedAccount.email);
+        balance.setText(valueOf(loggedAccount.balance));
         initial.setText(nameText.substring(0,1));
 
-        if(LoginActivity.loggedAccount.company == null){
+        if(loggedAccount.company == null){
             noCompany.setVisibility(LinearLayout.VISIBLE);
             company.setVisibility(LinearLayout.GONE);
             registerRenter.setOnClickListener(v -> {
@@ -91,11 +91,10 @@ public class AboutMeActivity extends AppCompatActivity {
     }
 
     protected void handleTopUP() {
-        int id = LoginActivity.loggedAccount.id;
+        int id = loggedAccount.id;
         double amount = Double.parseDouble(topUpAmount.getText().toString());
         if (topUpAmount.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "Field cannot be empty",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Field cannot be empty", Toast.LENGTH_SHORT).show();
             return;
         }
         mApiService.topUp(id, amount).enqueue(new Callback<BaseResponse<Double>>() {
@@ -108,8 +107,8 @@ public class AboutMeActivity extends AppCompatActivity {
                     return;
                 }
                 BaseResponse<Double> res = response.body();
-                LoginActivity.loggedAccount.balance = res.payload;
-                balance.setText(valueOf(LoginActivity.loggedAccount.balance));
+                loggedAccount.balance = res.payload;
+                balance.setText(valueOf(loggedAccount.balance));
                 Toast.makeText(mContext, res.message, Toast.LENGTH_SHORT).show();
 
             }

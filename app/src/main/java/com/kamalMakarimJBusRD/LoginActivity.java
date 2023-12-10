@@ -7,19 +7,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Context;
 import android.widget.Toast;
-
 import com.kamalMakarimJBusRD.model.Account;
 import com.kamalMakarimJBusRD.model.BaseResponse;
 import com.kamalMakarimJBusRD.request.BaseApiService;
 import com.kamalMakarimJBusRD.request.UtilsApi;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
-    public static Account loggedAccount = null;
+    public static Account loggedAccount;
     private Button loginButton = null;
     private TextView registerNow = null;
     private EditText email, password;
@@ -69,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 // handle the potential 4xx & 5xx error
                 BaseResponse<Account> res = response.body();
                 if (!res.success) {
-                    Toast.makeText(mContext, res.message + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, res.message, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else {

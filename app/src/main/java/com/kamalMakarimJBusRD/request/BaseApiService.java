@@ -4,11 +4,14 @@ import com.kamalMakarimJBusRD.model.BaseResponse;
 import com.kamalMakarimJBusRD.model.Bus;
 import com.kamalMakarimJBusRD.model.BusType;
 import com.kamalMakarimJBusRD.model.Facility;
+import com.kamalMakarimJBusRD.model.Payment;
 import com.kamalMakarimJBusRD.model.Renter;
 import com.kamalMakarimJBusRD.model.Station;
 
 import java.util.List;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -44,18 +47,37 @@ public interface BaseApiService {
     Call<BaseResponse<List<Bus>>> getMyBus (
             @Query("accountId") int accountId);
 
+    @FormUrlEncoded
     @POST("bus/create")
     Call<BaseResponse<Bus>> createBus (
-            @Query("accountId") int accountId,
-            @Query("name") String name,
-            @Query("capacity") int capacity,
-            @Query("facilities") List<Facility> facilities,
-            @Query("busType") BusType busType,
-            @Query("price") int price,
-            @Query("stationDepartureId") int stationDepartureId,
-            @Query("stationArrivalId") int stationArrivalId
+            @Field("accountId") int accountId,
+            @Field("name") String name,
+            @Field("capacity") int capacity,
+            @Field("facilities") List<Facility> facilities,
+            @Field("busType") BusType busType,
+            @Field("price") double price,
+            @Field("stationDepartureId") int stationDepartureId,
+            @Field("stationArrivalId") int stationArrivalId
     );
 
     @GET("station/getAll")
     Call<List<Station>> getAllStation();
+    @GET("bus/getAll")
+    Call<List<Bus>> getAllBus();
+
+    @POST("bus/addSchedule")
+    Call<BaseResponse<Bus>> addSchedule (
+            @Query("busId") int busId,
+            @Query("time") String time
+    );
+
+    @POST("payment/makeBooking")
+    Call<BaseResponse<Payment>> makeBooking (
+            @Query("buyerId") int buyerId,
+            @Query("renterId") int renterId,
+            @Query("busId") int busId,
+            @Query("busSeats") List<String> busSeats,
+            @Query("departureDate") String departureDate
+
+    );
 }

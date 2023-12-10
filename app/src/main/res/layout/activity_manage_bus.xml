@@ -55,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/prev_page"
+            android:id="@+id/prev_page_manage"
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,7 +63,7 @@
             android:minHeight="0dp" />
 
         <HorizontalScrollView
-            android:id="@+id/page_number_scroll"
+            android:id="@+id/page_number_scroll_manage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="25"
@@ -79,7 +79,7 @@
         </HorizontalScrollView>
 
         <Button
-            android:id="@+id/next_page"
+            android:id="@+id/next_page_manage"
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

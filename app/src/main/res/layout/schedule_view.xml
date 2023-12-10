@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    tools:ignore="UselessParent">
-
+    tools:ignore="UselessParent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/bus_view_container"
+        android:id="@+id/schedule_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:paddingHorizontal="10dp"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/bus_view_name_main"
+            android:id="@+id/schedule_view_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -26,26 +24,19 @@
             android:textSize="18sp"
             android:textStyle="bold"
             tools:ignore="RtlHardcoded" />
-
         <TextView
-            android:id="@+id/bus_view_price_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:gravity="top|left"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            tools:ignore="RtlHardcoded" />
+            android:layout_marginTop="5dp"
+            android:id="@+id/schedule_view_time"
+            android:textColor="@color/black"/>
         <TextView
-            android:id="@+id/bus_view_route_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="top|left"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            tools:ignore="RtlHardcoded" />
+            android:layout_marginTop="5dp"
+            android:id="@+id/schedule_view_occupancy"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

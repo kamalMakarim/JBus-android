@@ -6,5 +6,26 @@ public enum City {
     YOGYAKARTA,
     SEMARANG,
     SURABAYA,
-    BALI
+    BALI;
+    public String toStringNoOV() {
+        switch (this) {
+            case JAKARTA:
+                return "Jakarta";
+            case DEPOK:
+                return "Depok";
+            case BANDUNG:
+                return "Bandung";
+            case YOGYAKARTA:
+                return "Yogyakarta";
+            case SEMARANG:
+                return "Semarang";
+            case SURABAYA:
+                return "Surabaya";
+            case BALI:
+                return "Bali";
+            default:
+                return "Unknown";
+        }
+    }
+
 }

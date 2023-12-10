@@ -6,24 +6,43 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import android.widget.HorizontalScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kamalMakarimJBusRD.model.Bus;
+import com.kamalMakarimJBusRD.model.Station;
+import com.kamalMakarimJBusRD.request.BaseApiService;
+import com.kamalMakarimJBusRD.request.UtilsApi;
+
 import java.util.List;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private BaseApiService mApiService;
+    private Context mContext;
     private Button[] btns;
     private int currentPage = 0;
-    private int pageSize = 12; // kalian dapat bereksperimen dengan field ini
+    private final int pageSize = 7; // kalian dapat bereksperimen dengan field ini
     private int listSize;
     private int noOfPages;
     private List<Bus> listBus = new ArrayList<>();
@@ -31,24 +50,20 @@ public class MainActivity extends AppCompatActivity {
     private Button nextButton = null;
     private ListView busListView = null;
     private HorizontalScrollView pageScroll = null;
+    public static Bus selectedBus = null;
+    public static List<Station> listStation = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         prevButton = findViewById(R.id.prev_page);
         nextButton = findViewById(R.id.next_page);
         pageScroll = findViewById(R.id.page_number_scroll);
         busListView = findViewById(R.id.main_busses_list);
-// membuat sample list
-        listBus = Bus.sampleBusList(20);
-        listSize = listBus.size();
-        BusArrayAdapter arrayAdapter = new BusArrayAdapter(this,listBus, R.layout.bus_view);
-        busListView.setAdapter(arrayAdapter);
-// construct the footer
-        paginationFooter();
-        goToPage(currentPage);
+        mContext = this;
+        mApiService = UtilsApi.getApiService();
+        getAllBus();
 // listener untuk button prev dan button
         prevButton.setOnClickListener(v -> {
             currentPage = currentPage != 0? currentPage-1 : 0;
@@ -105,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         int startIndex = page * pageSize;
         int endIndex = Math.min(startIndex + pageSize, listBus.size());
         List<Bus> paginatedList = listBus.subList(startIndex, endIndex);
-        BusArrayAdapter arrayAdapter = new BusArrayAdapter(this, paginatedList, R.layout.bus_view);
+        BusArrayAdapter arrayAdapter = new BusArrayAdapter(this, paginatedList);
         busListView.setAdapter(arrayAdapter);
 
     }
@@ -134,4 +149,87 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(ctx, cls);
         startActivity(intent);
     }
+
+    private void getAllBus(){
+        mApiService.getAllBus().enqueue(new Callback<List<Bus>>() {
+            @Override
+            public void onResponse(Call<List<Bus>> call, Response<List<Bus>> response) {
+                if (response.isSuccessful()) {
+                    listBus = response.body();
+                    BusArrayAdapter arrayAdapter = new BusArrayAdapter(MainActivity.this,listBus);
+                    busListView.setAdapter(arrayAdapter);
+                    listSize = listBus.size();
+                    paginationFooter();
+                    goToPage(currentPage);
+                }
+                else{
+                    Toast.makeText(mContext, "Something went wrong" + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Bus>> call, Throwable t) {
+                Toast.makeText(mContext, "Problem with the server", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getAllStation (){
+        mApiService.getAllStation().enqueue(new Callback<List<Station>>() {
+            @Override
+            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
+                if (response.isSuccessful()) {
+                    listStation = response.body();
+                }
+                else{
+                    Toast.makeText(mContext, "Something went wrong" + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Station>> call, Throwable t) {
+                Toast.makeText(mContext, "Problem with the server", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private class BusArrayAdapter extends ArrayAdapter<Bus>{
+        public ImageView calendar;
+        private TextView busName;
+        private TextView busPrice;
+        private TextView route;
+        private View container;
+        public BusArrayAdapter(Context context, List<Bus> objects) {
+            super(context, 0, objects);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent){
+            Bus bus = getItem(position);
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.bus_view, parent, false);
+            }
+            busName = convertView.findViewById(R.id.bus_view_name_main);
+            busPrice = convertView.findViewById(R.id.bus_view_price_main);
+            route = convertView.findViewById(R.id.bus_view_route_main);
+            container = convertView.findViewById(R.id.bus_view_container);
+            assert bus != null;
+            busName.setText(bus.name);
+            busPrice.setText(bus.price.formatedPrice());
+            String routeText = bus.departure.toString() + " to " + bus.arrival.toString();
+            route.setText(routeText);
+
+            container.setOnClickListener(v -> {
+                MainActivity.selectedBus = bus;
+                moveActivity(mContext, BusDetailActivity.class);
+            });
+            return convertView;
+        }
+    }
 }
+
+
+

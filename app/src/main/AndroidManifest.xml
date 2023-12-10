@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".BusDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddBusActivity"
             android:exported="false" />
         <activity
@@ -26,9 +29,6 @@
             android:exported="false" />
         <activity
             android:name=".RegisterRenterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".request.RegisterRenterActivity"
             android:exported="false" />
         <activity
             android:name=".AboutMeActivity"
