@@ -69,6 +69,7 @@ Provides utility methods to access the BaseApiService instance throughout the ap
 The `activities` folder contains all the Android activities, each representing a different screen within the app.
 
 For instance, `LoginActivity` manages user logins, `RegisterActivity` handles new user registrations, and `MainActivity` is the central hub after a successful login.
+
 ![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/543011bc-8404-48fe-81b8-80e7b6ffe964)
 ![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/18380e87-d764-4442-b07c-2600598b226c)
 ![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/5f982185-6d81-45fe-b975-8211359d7ad9)
