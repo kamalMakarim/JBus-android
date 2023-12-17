@@ -69,6 +69,19 @@ Provides utility methods to access the BaseApiService instance throughout the ap
 The `activities` folder contains all the Android activities, each representing a different screen within the app.
 
 For instance, `LoginActivity` manages user logins, `RegisterActivity` handles new user registrations, and `MainActivity` is the central hub after a successful login.
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/543011bc-8404-48fe-81b8-80e7b6ffe964)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/18380e87-d764-4442-b07c-2600598b226c)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/5f982185-6d81-45fe-b975-8211359d7ad9)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/e7c32b6a-8775-4b03-a239-cac41191a249)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/9b0887a9-3188-4a71-93b0-89ad8bd87343)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/da164c77-1c15-41ae-861c-35dca272f022)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/8ed20e60-f62e-4b78-994c-0e3e31ed84a6)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/97e166e9-bdac-4d43-a2fe-841227c3ba42)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/7f49d7de-f7af-4053-8244-ed92bec1ff05)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/0498093b-a383-44bf-ae41-d0a6b147cf55)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/e966c751-021e-40da-be9a-5fe97cba35b9)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/51e08cc0-8444-488c-89bf-aa03fcbd09db)
+![image](https://github.com/kamalMakarim/JBus-android/assets/61099157/bfa077bf-0c01-4b27-819b-4b30fa8d4375)
 
 ## Installation
 
